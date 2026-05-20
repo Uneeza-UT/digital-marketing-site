@@ -29,8 +29,8 @@ The submitted consultation data is sent to a backend API for processing and stor
 
 - React
 - Vite
-- JavaScript (or TypeScript if used)
-- CSS / Tailwind (if used)
+- JavaScript
+- Tailwind CSS
 - REST API integration
 
 
@@ -70,6 +70,6 @@ Full-Stack Developer (React + ASP.NET Core)
 
 ## Connect with me
 
-- 💻 [GitHub](https://github.com/Uneeza-UT/Digital Marketing)
+- 💻 [GitHub](https://github.com/Uneeza-UT/digital-marketing-site)
 🎨 [Behance Case Study](https://www.behance.net/gallery/248346583/Digital-Marketing-Platform-Website-CMS)
 - 🔗 [LinkedIn](https://www.linkedin.com/in/uneeza-tukassar-53b4a01a3/)
