@@ -8,6 +8,7 @@ import BasicInfo from './HeroModalSteps/BasicInfo'
 import HeroModalServices from './HeroModalSteps/HeroModalServices'
 import Budget from './HeroModalSteps/Budget'
 import Message from './HeroModalSteps/Message'
+import api from "../../api/axiosConfig";
 
 export default function HeroModal({isOpen, onClose, submissionSuccess, setSubmissionSuccess}) {
 
@@ -24,8 +25,8 @@ export default function HeroModal({isOpen, onClose, submissionSuccess, setSubmis
 
     useEffect(() => {
         const fetchServices = async () => { 
-            const response = await fetch("https://localhost:44345/api/service")
-            const data = await response.json();
+            const response = await api.get("/service")
+            const data = await response.data
             setServices(data);
         };
 
@@ -63,13 +64,7 @@ export default function HeroModal({isOpen, onClose, submissionSuccess, setSubmis
                 ...data,
                 phoneNumber: phone,
             }
-            const response = await fetch("https://localhost:44345/api/bookconsultation", {
-                method: "POST",
-                headers: {
-                    "Content-Type" : "application/json",
-                },
-                body: JSON.stringify(payload)
-            })
+            const response = await api.post("/bookconsultation", payload)
 
             if (response.ok) {
                     toast.success("Consultation submitted successfully!");

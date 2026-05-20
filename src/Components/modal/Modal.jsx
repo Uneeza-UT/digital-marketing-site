@@ -7,6 +7,7 @@ import "react-phone-input-2/lib/style.css";
 import { useEffect, useState } from "react";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { toast } from 'react-hot-toast'
+import api from "../../api/axiosConfig";
 
 export default function Modal({isOpen, onClose, submissionSuccess, setSubmissionSuccess}) {
 
@@ -30,8 +31,8 @@ export default function Modal({isOpen, onClose, submissionSuccess, setSubmission
 
     useEffect(() => {
         const fetchServices = async () => { 
-            const response = await fetch("https://localhost:44345/api/service")
-            const data = await response.json();
+            const response = await api.get("/service")
+            const data = await response.data
             setServices(data);
         };
 
@@ -46,13 +47,7 @@ export default function Modal({isOpen, onClose, submissionSuccess, setSubmission
                 ...data,
                 phoneNumber: phone,
             }
-            const response = await fetch("https://localhost:44345/api/bookconsultation", {
-                method: "POST",
-                headers: {
-                    "Content-Type" : "application/json",
-                },
-                body: JSON.stringify(payload)
-            })
+            const response = await api.post("/bookconsultation", payload)
 
             if (response.ok) {
                  toast.success("Consultation submitted successfully!");
