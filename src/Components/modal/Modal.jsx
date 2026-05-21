@@ -216,9 +216,9 @@ export default function Modal({isOpen, onClose, submissionSuccess, setSubmission
                                                 })}
                                             >
                                                 <option value=""> Select Budget </option>
-                                                <option value="$500 - $1000"> $500 – $1,000 </option>
-                                                <option value="$1000 - $5000"> $1,000 – $5,000 </option>
-                                                <option value="$5000+"> $5,000+ </option>
+                                                <option value="$500 - $1,000"> $500 – $1,000 </option>
+                                                <option value="$1,000 - $5,000"> $1,000 – $5,000 </option>
+                                                <option value="$5,000+"> $5,000+ </option>
                                                 <option value="Not Sure Yet"> Not Sure Yet </option>
                                             </select>
                                             {errors.budget && <p className='text-red-500 text-sm'> {errors.budget.message} </p>}
