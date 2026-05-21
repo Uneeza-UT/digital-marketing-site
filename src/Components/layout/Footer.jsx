@@ -3,6 +3,7 @@ import { Rocket, Mail, Phone, MapPin, ChevronRight } from "lucide-react"
 import { HashLink } from "react-router-hash-link"
 import { useForm } from "react-hook-form"
 import { toast } from 'react-hot-toast'
+import api from "../../api/axiosConfig"
 
 export default function Footer() {
 
@@ -10,28 +11,29 @@ export default function Footer() {
 
     const onSubmit = async (data) => {
         setSubmitting(true);
-        try{
-            const response = await fetch("https://localhost:44345/api/contactmessage", {
-                method: "POST",
-                headers: {
-                    "Content-Type" : "application/json",
-                },
-                body: JSON.stringify(data)
-            })
 
-            if (response.ok) {
-                toast.success("Message Sent successfully!");
-                reset();
-                setSubmitting(false);
+        try {
+            await api.post("/contactmessage", data)
+            toast.success("Message Sent successfully!");
+            reset();
+            setSubmitting(false);
+        }
+                
+        catch (error) {
+            if (error.response) 
+            {
+                toast.error(error.response.data.message || "Failed to send message!");
+            } 
+            else if (error.request) 
+            {
+                toast.error("Error:", error?.response);
             } 
             else {
-                toast.error("Something went wrong");
+                // Something else went wrong
+                toast.error("Error: " + error.message);
             }
         }
-        catch (error){
-            console.error("Error!", error)
-            toast.error("Error submtting form!")
-        }
+        
     }
 
     return (
