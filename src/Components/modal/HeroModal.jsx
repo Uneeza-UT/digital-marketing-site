@@ -207,7 +207,10 @@ export default function HeroModal({isOpen, onClose, submissionSuccess, setSubmis
 
                                         <button 
                                             type="button" // submit on last step
-                                            onClick={() => setSubmissionSuccess(false)}
+                                            onClick={() => {
+                                                setStep(1)
+                                                setSubmissionSuccess(false)
+                                            }}
                                             className="w-full sm:w-auto flex items-center justify-center h-12 px-6
                                             bg-brandMarketing-500 text-white rounded-xl font-medium 
                                             transition-all duration-300 sm:hover:bg-brandMarketing-600 
