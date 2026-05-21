@@ -10,13 +10,11 @@ export default function Footer() {
     const {register, handleSubmit, reset, formState: {errors, isSubmitting}} = useForm();
 
     const onSubmit = async (data) => {
-        setSubmitting(true);
 
         try {
             await api.post("/contactmessage", data)
             toast.success("Message Sent successfully!");
             reset();
-            setSubmitting(false);
         }
                 
         catch (error) {
