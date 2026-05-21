@@ -42,26 +42,32 @@ export default function Modal({isOpen, onClose, submissionSuccess, setSubmission
 
     const onSubmit = async (data) => {
 
-        try{
-            const payload = {
-                ...data,
-                phoneNumber: phone,
-            }
-            const response = await api.post("/bookconsultation", payload)
+        const payload = {
+            ...data,
+            phoneNumber: phone,
+        }
 
-            if (response.ok) {
-                 toast.success("Consultation submitted successfully!");
-                 setSubmissionSuccess(true);
-                 reset();
-                 setPhone("");
+        try {
+            await api.post("/bookconsultation", payload)
+            toast.success("Consultation submitted successfully!");
+            setSubmissionSuccess(true);
+            reset();
+            setPhone("");
+        }
+            
+        catch (error) {
+            if (error.response) 
+            {
+                toast.error(error.response.data.message || "Failed to schedule consultation");
+            } 
+            else if (error.request) 
+            {
+                toast.error("Error:", error?.response);
             } 
             else {
-                toast.error("Something went wrong");
+                // Something else went wrong
+                toast.error("Error: " + error.message);
             }
-        }
-        catch (error){
-            toast.error("Error submtting form!")
-            console.error("Error!", error)
         }
     }
 

@@ -46,40 +46,45 @@ export default function HeroModal({isOpen, onClose, submissionSuccess, setSubmis
 
     const handleNextStep = async () => {
 
-    const currentStepFields = step === 1 
-                                ? ["name", "email", "industry"] 
-                                : step === 2 ? ["serviceIds"] 
-                                : step === 3 ? ["budget"] : [] 
+        const currentStepFields = step === 1 
+                                    ? ["name", "email", "industry"] 
+                                    : step === 2 ? ["serviceIds"] 
+                                    : step === 3 ? ["budget"] : [] 
     
 
-    const valid = await trigger(currentStepFields); // triggers validation for these fields
-    
-    if (valid) nextStep(); // go to next step only if valid
-};
+        const valid = await trigger(currentStepFields); // triggers validation for these fields
+        
+        if (valid) nextStep(); // go to next step only if valid
+    };
 
     const onSubmit = async (data) => {
+    
+        const payload = {
+            ...data,
+            phoneNumber: phone,
+        }
 
-        try{
-            const payload = {
-                ...data,
-                phoneNumber: phone,
-            }
-            const response = await api.post("/bookconsultation", payload)
-
-            if (response.ok) {
-                    toast.success("Consultation submitted successfully!");
-                    setSubmissionSuccess(true);
-                    reset();
-                    setPhone("");
-                    setStep(1);
+        try {
+            await api.post("/bookconsultation", payload)
+            toast.success("Consultation submitted successfully!");
+            setSubmissionSuccess(true);
+            reset();
+            setPhone("");
+        }
+                
+        catch (error) {
+            if (error.response) 
+            {
+                toast.error(error.response.data.message || "Failed to schedule consultation");
+            } 
+            else if (error.request) 
+            {
+                toast.error("Error:", error?.response);
             } 
             else {
-                toast.error("Something went wrong");
+                // Something else went wrong
+                toast.error("Error: " + error.message);
             }
-        }
-        catch (error){
-            toast.error("Error submtting form!")
-            console.error("Error!", error)
         }
     }
 
