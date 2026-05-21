@@ -9,8 +9,8 @@ The submitted consultation data is sent to a backend API for processing and stor
 
 ## Project Status
 
-🚧 Deployment: In progress  
-🌐 Live Demo: Coming soon
+🚧 Deployment: Deployed  
+🌐 [Live Demo](https://digital-marketing-site-7ad3.vercel.app/)
 
 ---
 
